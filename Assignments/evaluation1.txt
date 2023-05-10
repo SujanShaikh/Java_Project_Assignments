@@ -1,0 +1,195 @@
+mysql> create database evaluation1;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> use evaluation1;
+Database changed
+mysql> create table student(name varchar(25),age int,course varchar(25),city varchar(25),year int,percentage int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into student values('arun',23,'IT','pune',3,78);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into student values('ajay',24,'OS','mumbai',2,88),('arun',21,'OS','nashik',2,65),('mikal',29,'CS','alandi',4,87);
+Query OK, 3 rows affected (0.07 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++--------+------+--------+-----------+------+------------+
+| name   | age  | course | city      | year | percentage |
++--------+------+--------+-----------+------+------------+
+| sujan  |   22 | java   | pune      |    4 |         87 |
+| yash   |   25 | java   | agra      |    4 |         97 |
+| harini |   21 | mean   | hyderabad |    3 |         84 |
+| pooja  |   23 | IT     | mumbai    |    3 |         77 |
+| arun   |   23 | IT     | pune      |    3 |         78 |
+| ajay   |   24 | OS     | mumbai    |    2 |         88 |
+| arun   |   21 | OS     | nashik    |    2 |         65 |
+| mikal  |   29 | CS     | alandi    |    4 |         87 |
++--------+------+--------+-----------+------+------------+
+
+
+
+
+mysql> create table teacher(name varchar(25),age int,course varchar(25),city varchar(25),subject_expert varchar(25),year_of_experience int);
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> insert into teacher values('aarti',27,'java','pune','java',9);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into teacher values('arun',26,'java','pune','java',19),('viman',29,'OS','goa','OS',19),
+    -> ('amit',45,'SQL','AP','OS',27),('nikhil',37,'networking','MP','OS',9),
+    -> ('aman',26,'SQL','indore','java',9);
+Query OK, 5 rows affected (0.07 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into teacher values('kriti',26,'java','MP','networking',5),('ishwari',36,'OS','jammu','python',7),
+    -> ('tanmay',27,'sql','nagpur','sql',9),('nayar',29,'python','nagpur','python',4);
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from teacher;
++---------+------+------------+--------+----------------+--------------------+
+| name    | age  | course     | city   | subject_expert | year_of_experience |
++---------+------+------------+--------+----------------+--------------------+
+| aarti   |   27 | java       | pune   | java           |                  9 |
+| arun    |   26 | java       | pune   | java           |                 19 |
+| viman   |   29 | OS         | goa    | OS             |                 19 |
+| amit    |   45 | SQL        | AP     | OS             |                 27 |
+| nikhil  |   37 | networking | MP     | OS             |                  9 |
+| aman    |   26 | SQL        | indore | java           |                  9 |
+| kriti   |   26 | java       | MP     | networking     |                  5 |
+| ishwari |   36 | OS         | jammu  | python         |                  7 |
+| tanmay  |   27 | sql        | nagpur | sql            |                  9 |
+| nayar   |   29 | python     | nagpur | python         |                  4 |
++---------+------+------------+--------+----------------+--------------------+
+10 rows in set (0.00 sec)
+
+3.
+mysql> alter table teacher rename column course to subject;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+4.
+mysql>
+mysql> create table student_bkp like student;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc student_bkp;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| name       | varchar(25) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| course     | varchar(25) | YES  |     | NULL    |       |
+| city       | varchar(25) | YES  |     | NULL    |       |
+| year       | int         | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> create table teacher_bkp like teacher;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc teacher_bkp;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| name               | varchar(25) | YES  |     | NULL    |       |
+| age                | int         | YES  |     | NULL    |       |
+| subject            | varchar(25) | YES  |     | NULL    |       |
+| city               | varchar(25) | YES  |     | NULL    |       |
+| subject_expert     | varchar(25) | YES  |     | NULL    |       |
+| year_of_experience | int         | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+5.
+mysql> select * from student where city in('pune','mumbai');
++-------+------+--------+--------+------+------------+
+| name  | age  | course | city   | year | percentage |
++-------+------+--------+--------+------+------------+
+| sujan |   22 | java   | pune   |    4 |         87 |
+| pooja |   23 | IT     | mumbai |    3 |         77 |
+| arun  |   23 | IT     | pune   |    3 |         78 |
+| ajay  |   24 | OS     | mumbai |    2 |         88 |
++-------+------+--------+--------+------+------------+
+4 rows in set (0.00 sec)
+
+6.
+mysql> update teacher set city='ahmedabad' where name='amit';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from teacher where name like'a%' and city='ahmedabad';
++------+------+---------+-----------+----------------+--------------------+
+| name | age  | subject | city      | subject_expert | year_of_experience |
++------+------+---------+-----------+----------------+--------------------+
+| amit |   45 | SQL     | ahmedabad | OS             |                 27 |
++------+------+---------+-----------+----------------+--------------------+
+1 row in set (0.07 sec)
+
+7.
+mysql> select * from teacher where year_of_experience>=4;
++---------+------+------------+-----------+----------------+--------------------+
+| name    | age  | subject    | city      | subject_expert | year_of_experience |
++---------+------+------------+-----------+----------------+--------------------+
+| aarti   |   27 | java       | pune      | java           |                  9 |
+| arun    |   26 | java       | pune      | java           |                 19 |
+| viman   |   29 | OS         | goa       | OS             |                 19 |
+| amit    |   45 | SQL        | ahmedabad | OS             |                 27 |
+| nikhil  |   37 | networking | MP        | OS             |                  9 |
+| aman    |   26 | SQL        | indore    | java           |                  9 |
+| kriti   |   26 | java       | MP        | networking     |                  5 |
+| ishwari |   36 | OS         | jammu     | python         |                  7 |
+| tanmay  |   27 | sql        | nagpur    | sql            |                  9 |
+| nayar   |   29 | python     | nagpur    | python         |                  4 |
++---------+------+------------+-----------+----------------+--------------------+
+10 rows in set (0.06 sec)
+mysql> create table student_bkp11 like student;
+Query OK, 0 rows affected (0.11 sec)
+
+8.mysql> select city, count(city) from student group by city;
++-----------+-------------+
+| city      | count(city) |
++-----------+-------------+
+| pune      |           2 |
+| agra      |           1 |
+| hyderabad |           1 |
+| mumbai    |           2 |
+| nashik    |           1 |
+| alandi    |           1 |
++-----------+-------------+
+6 rows in set (0.00 sec)
+
+
+10.
+mysql> desc student_bkp11;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| name       | varchar(25) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| course     | varchar(25) | YES  |     | NULL    |       |
+| city       | varchar(25) | YES  |     | NULL    |       |
+| year       | int         | YES  |     | NULL    |       |
+| percentage | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> create table teacher_bkp11 like teacher;
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> desc teacher_bkp11;
++--------------------+-------------+------+-----+---------+-------+
+| Field              | Type        | Null | Key | Default | Extra |
++--------------------+-------------+------+-----+---------+-------+
+| name               | varchar(25) | YES  |     | NULL    |       |
+| age                | int         | YES  |     | NULL    |       |
+| subject            | varchar(25) | YES  |     | NULL    |       |
+| city               | varchar(25) | YES  |     | NULL    |       |
+| subject_expert     | varchar(25) | YES  |     | NULL    |       |
+| year_of_experience | int         | YES  |     | NULL    |       |
++--------------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+9 question is remaining

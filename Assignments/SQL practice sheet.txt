@@ -1,0 +1,303 @@
+mysql> select * from students where sid=4 and tid=5;
++-----+-------+------+
+| sid | sname | tid  |
++-----+-------+------+
+|   4 | pooja |    5 |
++-----+-------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where sid=4 or tid=5;
++-----+-------+------+
+| sid | sname | tid  |
++-----+-------+------+
+|   1 | sujan |    5 |
+|   4 | pooja |    5 |
++-----+-------+------+
+2 rows in set (0.07 sec)
+
+mysql> select * from students where not sid=2;
++-----+--------+------+
+| sid | sname  | tid  |
++-----+--------+------+
+|   1 | sujan  |    5 |
+|   3 | yash   |    2 |
+|   4 | pooja  |    5 |
+|   5 | aniket |    4 |
++-----+--------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from students where not sid in (2,3);
++-----+--------+------+
+| sid | sname  | tid  |
++-----+--------+------+
+|   1 | sujan  |    5 |
+|   4 | pooja  |    5 |
+|   5 | aniket |    4 |
++-----+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from students order by sid;
++-----+--------+------+
+| sid | sname  | tid  |
++-----+--------+------+
+|   1 | sujan  |    5 |
+|   2 | harini |    1 |
+|   3 | yash   |    2 |
+|   4 | pooja  |    5 |
+|   5 | aniket |    4 |
++-----+--------+------+
+5 rows in set (0.00 sec)
+ select * from city
+    -> order by sid
+    -> ;
++------+--------+------+
+| cid  | cname  | sid  |
++------+--------+------+
+|  222 | Indore |   11 |
+|  444 | mumbai |   11 |
+|  333 | nashik |   22 |
+|  555 | surat  |   33 |
+|  111 | pune   |   44 |
++------+--------+------+
+mysql> select * from students group by sid;
++-----+--------+------+
+| sid | sname  | tid  |
++-----+--------+------+
+|   1 | sujan  |    5 |
+|   2 | harini |    1 |
+|   3 | yash   |    2 |
+|   4 | pooja  |    5 |
+|   5 | aniket |    4 |
++-----+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select cname,sid
+    -> from city
+    -> where sid is null;
++----------+------+
+| cname    | sid  |
++----------+------+
+| amravati | NULL |
++----------+------+
+1 row in set (0.00 sec)
+
+mysql> select cname,sid
+    -> from city
+    -> where sid is not null;
++--------+------+
+| cname  | sid  |
++--------+------+
+| pune   |   44 |
+| Indore |   11 |
+| nashik |   22 |
+| mumbai |   11 |
+| surat  |   33 |
++--------+------+
+5 rows in set (0.00 sec)
+
+mysql> update city
+    -> set sid=44
+    -> where cname='nashik';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from city;
++------+----------+------+
+| cid  | cname    | sid  |
++------+----------+------+
+|  111 | pune     |   44 |
+|  222 | Indore   |   11 |
+|  333 | nashik   |   44 |
+|  444 | mumbai   |   11 |
+|  555 | surat    |   33 |
+|  333 | amravati | NULL |
++------+----------+------+
+6 rows in set (0.00 sec)
+
+mysql> select name
+    -> from student
+    -> where division='a'
+    -> limit 1;
++------+
+| name |
++------+
+| bala |
++------+
+1 row in set (0.00 sec)
+
+mysql> select  ename from employee where salary=(select min(salary) from employee);
++----------+
+| ename    |
++----------+
+| Shahrukh |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select ename  from employee where salary=(select max(salary) from employee);
++--------+
+| ename  |
++--------+
+| Nikhil |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select ename  ,salary from employee where salary=(select max(salary) from employee);
++--------+--------+
+| ename  | salary |
++--------+--------+
+| Nikhil | 120000 |
++--------+--------+
+1 row in set (0.00 sec)
+
+
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  38400.0000 |
++-------------+
+
+mysql> select id,name
+    -> from t3
+    -> order by (case when id is null then 'yet to join' else id end);
++----+---------+
+| id | name    |
++----+---------+
+|  1 | sujan   |
+|  2 | yash    |
+|  3 | manisha |
++----+---------+
+3 rows in set (0.00 sec)
+
+Backup database query doesn't support the current sql version.
+ create table t1 (id int primary key not null,name varchar(25),city varchar(25),age int check(age>18));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into t1 values(1,'sujan','nanded',22);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into t1 values(2,'harini','hyderabad',16);
+ERROR 3819 (HY000): Check constraint 't1_chk_1' is violated.
+
+mysql> create table t2( id int not null,name varchar(25), age int, city varchar(25) default 'pune');
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into t2(id,name,age) values(1,'sujan',22);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from t2;
++----+-------+------+------+
+| id | name  | age  | city |
++----+-------+------+------+
+|  1 | sujan |   22 | pune |
++----+-------+------+------+
+1 row in set (0.00 sec)
+
+mysql> desc t2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   |     | NULL    |       |
+| name  | varchar(25) | YES  |     | NULL    |       |
+| age   | int         | YES  |     | NULL    |       |
+| city  | varchar(25) | YES  |     | pune    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table t3 (id int auto_increment primary key,name varchar(23));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into t3 (name) values ('sujan'),('yash'),('manisha');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from t3;
++----+---------+
+| id | name    |
++----+---------+
+|  1 | sujan   |
+|  2 | yash    |
+|  3 | manisha |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> desc t3;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(23) | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+mysql> alter table t3 add jdate date;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from t3;
++----+---------+-------+
+| id | name    | jdate |
++----+---------+-------+
+|  1 | sujan   | NULL  |
+|  2 | yash    | NULL  |
+|  3 | manisha | NULL  |
+mysql> update t3 set jdate='2021-11-19' where id=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from t3;
++----+---------+------------+
+| id | name    | jdate      |
++----+---------+------------+
+|  1 | sujan   | 2022-01-16 |
+|  2 | yash    | 2023-01-14 |
+|  3 | manisha | 2021-11-19 |
++----+---------+------------+
+3 rows in set (0.00 sec)
+mysql> explain select jdate from t3 where name='manisha';
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | t3    | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    3 |    33.33 | Using where |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> create index  idx on t3 (name);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> explain select jdate from t3 where name='manisha';
++----+-------------+-------+------------+------+---------------+------+---------+-------+------+----------+-------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref   | rows | filtered | Extra |
++----+-------------+-------+------------+------+---------------+------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | t3    | NULL       | ref  | idx           | idx  | 95      | const |    1 |   100.00 | NULL  |
++----+-------------+-------+------------+------+---------------+------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> select name,extract(day from jdate) as joining_date from t3;
++---------+--------------+
+| name    | joining_date |
++---------+--------------+
+| sujan   |           16 |
+| yash    |           14 |
+| manisha |           19 |
++---------+--------------+
+3 rows in set (0.06 sec)
+
+mysql> select name,extract(year from jdate) as joining_year from t3;
++---------+--------------+
+| name    | joining_year |
++---------+--------------+
+| sujan   |         2022 |
+| yash    |         2023 |
+| manisha |         2021 |
++---------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2023-01-25 |
++------------+
+1 row in set (0.00 sec)
+
++

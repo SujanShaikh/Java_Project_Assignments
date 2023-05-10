@@ -1,0 +1,239 @@
+w3 school  Joins practice sheet:
+
+ select * from e1;
++-----+-----------+---------+
+| eno | ename     | address |
++-----+-----------+---------+
+|   1 | sujan     | nanded  |
+|   2 | pratiksha | solapur |
+|   3 | ravi      | delhi   |
+|   4 | tanmay    | pune    |
+|   5 | kriti     | Indore  |
++-----+-----------+---------+
+
+ select  * from dep;
++-----+-------------+------+
+| dno | dname       | eno  |
++-----+-------------+------+
+|  11 | java        |    1 |
+|  22 | mean        |    2 |
+|  33 | devops      |    4 |
+|  44 | datascience |    5 |
++-----+-------------+------+
+4 rows in set (0.00 sec)
+mysql> select e.ename ,d.dname from e1 e join  dep d where e.eno=d.eno;
++-----------+-------------+
+| ename     | dname       |
++-----------+-------------+
+| sujan     | java        |
+| pratiksha | mean        |
+| tanmay    | devops      |
+| kriti     | datascience |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select e.ename ,d.dname,e.eno from e1 e join  dep d where e.eno=d.eno;
++-----------+-------------+-----+
+| ename     | dname       | eno |
++-----------+-------------+-----+
+| sujan     | java        |   1 |
+| pratiksha | mean        |   2 |
+| tanmay    | devops      |   4 |
+| kriti     | datascience |   5 |
++-----------+-------------+-----+
+4 rows in set (0.00 sec)
+
+mysql> select e.ename ,d.dname,e.eno,d.eno from e1 e join  dep d ;
++-----------+-------------+-----+------+
+| ename     | dname       | eno | eno  |
++-----------+-------------+-----+------+
+| sujan     | datascience |   1 |    5 |
+| sujan     | devops      |   1 |    4 |
+| sujan     | mean        |   1 |    2 |
+| sujan     | java        |   1 |    1 |
+| pratiksha | datascience |   2 |    5 |
+| pratiksha | devops      |   2 |    4 |
+| pratiksha | mean        |   2 |    2 |
+| pratiksha | java        |   2 |    1 |
+| ravi      | datascience |   3 |    5 |
+| ravi      | devops      |   3 |    4 |
+| ravi      | mean        |   3 |    2 |
+| ravi      | java        |   3 |    1 |
+| tanmay    | datascience |   4 |    5 |
+| tanmay    | devops      |   4 |    4 |
+| tanmay    | mean        |   4 |    2 |
+| tanmay    | java        |   4 |    1 |
+| kriti     | datascience |   5 |    5 |
+| kriti     | devops      |   5 |    4 |
+| kriti     | mean        |   5 |    2 |
+| kriti     | java        |   5 |    1 |
++-----------+-------------+-----+------+
+20 rows in set (0.00 sec)
+
+mysql> select *  from e1 e left outer join dep d on(e.eno=d.eno);
++-----+-----------+---------+------+-------------+------+
+| eno | ename     | address | dno  | dname       | eno  |
++-----+-----------+---------+------+-------------+------+
+|   1 | sujan     | nanded  |   11 | java        |    1 |
+|   2 | pratiksha | solapur |   22 | mean        |    2 |
+|   2 | pratiksha | solapur |   44 | datascience |    2 |
+|   3 | ravi      | delhi   | NULL | NULL        | NULL |
+|   4 | tanmay    | pune    |   33 | devops      |    4 |
+|   5 | kriti     | Indore  | NULL | NULL        | NULL |
++-----+-----------+---------+------+-------------+------+
+6 rows in set (0.00 sec)
+
+mysql> select *  from e1 e right outer join dep d on(e.eno=d.eno);
++------+-----------+---------+-----+-------------+------+
+| eno  | ename     | address | dno | dname       | eno  |
++------+-----------+---------+-----+-------------+------+
+|    1 | sujan     | nanded  |  11 | java        |    1 |
+|    2 | pratiksha | solapur |  22 | mean        |    2 |
+|    4 | tanmay    | pune    |  33 | devops      |    4 |
+|    2 | pratiksha | solapur |  44 | datascience |    2 |
++------+-----------+---------+-----+-------------+------+
+4 rows in set (0.00 sec)
+
+mysql> select *  from e1 e right outer join dep d on(e.eno=d.eno);
++------+-----------+---------+-----+-------------+------+
+| eno  | ename     | address | dno | dname       | eno  |
++------+-----------+---------+-----+-------------+------+
+|    1 | sujan     | nanded  |  11 | java        |    1 |
+|    2 | pratiksha | solapur |  22 | mean        |    2 |
+|    4 | tanmay    | pune    |  33 | devops      |    4 |
+|    2 | pratiksha | solapur |  44 | datascience |    2 |
+| NULL | NULL      | NULL    |  55 | HR          | NULL |
++------+-----------+---------+-----+-------------+------+
+5 rows in set (0.00 sec)
+mysql> select ea.ename from e1 ea,e1 eb where ea.eno=eb.eno and ea.address='nanded';
++-------+
+| ename |
++-------+
+| sujan |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select ea.ename,ea.address from e1 ea,e1 eb where ea.eno=eb.eno and ea.address<>'nanded';
++-----------+---------+
+| ename     | address |
++-----------+---------+
+| pratiksha | solapur |
+| ravi      | delhi   |
+| tanmay    | pune    |
+| kriti     | Indore  |
++-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from e1 e inner join dep d
+    -> on
+    -> e.eno=d.eno;
++-----+-----------+---------+-----+-------------+------+
+| eno | ename     | address | dno | dname       | eno  |
++-----+-----------+---------+-----+-------------+------+
+|   1 | sujan     | nanded  |  11 | java        |    1 |
+|   2 | pratiksha | solapur |  22 | mean        |    2 |
+|   2 | pratiksha | solapur |  44 | datascience |    2 |
+|   4 | tanmay    | pune    |  33 | devops      |    4 |
++-----+-----------+---------+-----+-------------+------+
+mysql> select count(eno),dname
+    -> from dep
+    -> group by dname
+    -> order by count(eno) desc;
++------------+-------------+
+| count(eno) | dname       |
++------------+-------------+
+|          1 | java        |
+|          1 | mean        |
+|          1 | devops      |
+|          1 | datascience |
+|          0 | HR          |
++------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> select e.eno from e1 e
+    -> union
+    -> select d.dno from dep d;
++-----+
+| eno |
++-----+
+|   1 |
+|   2 |
+|   3 |
+|   4 |
+|   5 |
+|  55 |
+|  11 |
+|  22 |
+|  44 |
+|  33 |
++-----+
+10 rows in set (0.00 sec)
+
+mysql> select e.eno from e1 e
+    -> union all
+    -> select d.dno from dep d;
++-----+
+| eno |
++-----+
+|   1 |
+|   2 |
+|   3 |
+|   4 |
+|   5 |
+|  55 |
+|  11 |
+|  22 |
+|  44 |
+|  33 |
++-----+
+mysql> select dname,count(eno)
+    -> from dep
+    -> group by dno
+    -> having count(eno)<5;
++-------------+------------+
+| dname       | count(eno) |
++-------------+------------+
+| java        |          1 |
+| mean        |          1 |
+| devops      |          1 |
+| datascience |          1 |
+| HR          |          0 |
++-------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select dname
+    -> from dep
+    -> where exists
+    -> (select dno from dep where dno=55);
++-------------+
+| dname       |
++-------------+
+| java        |
+| mean        |
+| devops      |
+| datascience |
+| HR          |
++-------------+
+5 rows in set (0.00 sec)
+
+mysql> select dname,dno
+    -> from dep
+    -> where exists
+    -> (select dno from dep where dno=11);
++-------------+-----+
+| dname       | dno |
++-------------+-----+
+| java        |  11 |
+| mean        |  22 |
+| devops      |  33 |
+| datascience |  44 |
+| HR          |  55 |
++-------------+-----+
+5 rows in set (0.00 sec)
+
+mysql> select dname,dno
+    -> from dep
+    -> where exists
+    -> (select dno from dep where dno=77);
+Empty set (0.00 sec)

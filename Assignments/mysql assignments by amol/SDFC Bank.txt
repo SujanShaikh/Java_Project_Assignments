@@ -1,0 +1,293 @@
+******  SDFC Bank Assignment *********
+
+Table creation:
+
+mysql> CREATE TABLE customer (
+    ->   customer_id int PRIMARY KEY,
+    ->   cust_name varchar(25),
+    ->   contact_no int,
+    ->   dob date NOT NULL,
+    ->   gender varchar(1),
+    ->   amount_spent int DEFAULT 0,
+    ->   CHECK (gender IN ('M', 'F'))
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> create table creditcard(
+    -> card_no varchar(20),
+    -> customer_id int ,
+    -> card_type varchar(20),
+    -> doe date,
+    -> credit_limit int,
+    -> primary key(card_no,customer_id),
+    -> check (card_no like 'C%' and card_type in ("Platinum","Gold","Silver")),
+    -> foreign key (customer_id) references customer(customer_id));
+Query OK, 0 rows affected (0.03 sec)
+
+
+mysql> create table transaction(
+    -> transaction_id varchar(20) primary key,
+    -> card_no varchar(20),
+    -> dot date,
+    -> tamount int,
+    -> check(transaction_id like 'T%' ),
+    -> foreign key(card_no) references creditcard(card_no));
+Query OK, 0 rows affected (0.04 sec)
+
+
+Value Insertion:
+
+mysql> insert into customer values(1001,"Ridhima",9876543,"1982-11-22","F",0);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into customer values(1002,"Anuj",89338843,"1977-08-10","M",40000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(1003,"Arvind",85547474,"1989-03-24","M",800000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(1004,"Antra",85564883,"1980-09-07","F",0);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into customer values(1005,"Joseph",98564883,"1979-01-19","M",60000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into customer values(1006,"Ragini",73864883,"1988-11-28","F",300000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer values(1007,"Sara",79564883,"1990-02-23","M",0);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into creditcard value("C101",1002,"Platinum","2016-08-15",400000)
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into creditcard value("C102",1005,"Gold","2016-10-06",250000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into creditcard value("C103",1005,"Platinum","2017-04-17",600000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql>
+mysql> insert into creditcard value("C104",1003,"Silver","2018-11-28",550000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into creditcard value("C105",1006,"Gold","2020-01-03",300000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into creditcard value("C106",1003,"Silver","2017-10-04",450000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into creditcard value("C107",1001,"Gold","2016-11-16",25000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into creditcard value("C108",1005,"Silver","2017-09-18",450000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into creditcard value("C109",1004,"Silver","2016-09-18",550000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into transaction values("T101","C101","2014-03-13",40000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> insert into transaction values("T102","C102","2014-10-09",20000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into transaction values("T103","C102","2015-04-10",450000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into transaction values("T104","C105","2015-04-14",200000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into transaction values("T105","C103","2015-06-21",40000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> insert into transaction values("T106","C105","2015-07-24",100000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into transaction values("T107","C106","2015-11-02",350000);
+Query OK, 1 row affected (0.07 sec)
+
+
+Tables:
+
+
+mysql> select * from customer;
++-------------+-----------+------------+------------+--------+--------------+
+| customer_id | cust_name | contact_no | dob        | gender | amount_spent |
++-------------+-----------+------------+------------+--------+--------------+
+|        1001 | Ridhima   |    9876543 | 1982-11-22 | F      |            0 |
+|        1002 | Anuj      |   89338843 | 1977-08-10 | M      |        40000 |
+|        1003 | Arvind    |   85547474 | 1989-03-24 | M      |       800000 |
+|        1004 | Antra     |   85564883 | 1980-09-07 | F      |            0 |
+|        1005 | Joseph    |   98564883 | 1979-01-19 | M      |        60000 |
+|        1006 | Ragini    |   73864883 | 1988-11-28 | F      |       300000 |
+|        1007 | Sara      |   79564883 | 1990-02-23 | M      |            0 |
++-------------+-----------+------------+------------+--------+--------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from transaction;
++----------------+---------+------------+---------+
+| transaction_id | card_no | dot        | tamount |
++----------------+---------+------------+---------+
+| T101           | C101    | 2014-03-13 |   40000 |
+| T102           | C102    | 2014-10-09 |   20000 |
+| T103           | C102    | 2015-04-10 |  450000 |
+| T104           | C105    | 2015-04-14 |  200000 |
+| T105           | C103    | 2015-06-21 |   40000 |
+| T106           | C105    | 2015-07-24 |  100000 |
+| T107           | C106    | 2015-11-02 |  350000 |
++----------------+---------+------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from creditcard;
++---------+-------------+-----------+------------+--------------+
+| card_no | customer_id | card_type | doe        | credit_limit |
++---------+-------------+-----------+------------+--------------+
+| C101    |        1002 | Platinum  | 2016-08-15 |       400000 |
+| C102    |        1005 | Gold      | 2016-10-06 |       250000 |
+| C103    |        1005 | Platinum  | 2017-04-17 |       600000 |
+| C104    |        1003 | Silver    | 2018-11-28 |       550000 |
+| C105    |        1006 | Gold      | 2020-01-03 |       300000 |
+| C106    |        1003 | Silver    | 2017-10-04 |       450000 |
+| C107    |        1001 | Gold      | 2016-11-16 |        25000 |
+| C108    |        1005 | Silver    | 2017-09-18 |       450000 |
+| C109    |        1004 | Silver    | 2016-09-18 |       550000 |
++---------+-------------+-----------+------------+--------------+
+9 rows in set (0.00 sec)
+
+
+Queries:
+
+mysql> select customer_id,cust_name,amount_spent
+    -> from customer
+    -> where cust_name like '%i%' and dob between "1982-11-01" and "1988-12-31";
++-------------+-----------+--------------+
+| customer_id | cust_name | amount_spent |
++-------------+-----------+--------------+
+|        1001 | Ridhima   |            0 |
+|        1006 | Ragini    |       300000 |
++-------------+-----------+--------------+
+2 rows in set (0.08 sec)
+
+
+mysql> select concat(cust_name,concat("-",customer_id)) as cust_details,
+    -> contact_no,gender
+    -> from customer
+    -> where gender='M' and customer_id not in(select customer_id from creditcard);
++--------------+------------+--------+
+| cust_details | contact_no | gender |
++--------------+------------+--------+
+| Sara-1007    |   79564883 | M      |
++--------------+------------+--------+
+1 row in set (0.08 sec)
+
+mysql>
+
+
+mysql> select customer_id,credit_limit as total_credit_limit
+    -> from creditcard
+    -> where credit_limit > (select avg(credit_limit) from creditcard);
++-------------+--------------------+
+| customer_id | total_credit_limit |
++-------------+--------------------+
+|        1002 |             400000 |
+|        1005 |             600000 |
+|        1003 |             550000 |
+|        1003 |             450000 |
+|        1005 |             450000 |
+|        1004 |             550000 |
++-------------+--------------------+
+6 rows in set (0.03 sec)
+
+
+mysql> select c.customer_id,t.transaction_id
+    -> from transaction t
+    -> join creditcard c
+    -> using(card_no)
+    -> where t.tamount in
+    -> (select t1.tamount from transaction t1
+    -> where t.transaction_id <> t1.transaction_id );
++-------------+----------------+
+| customer_id | transaction_id |
++-------------+----------------+
+|        1002 | T101           |
+|        1005 | T105           |
++-------------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> select c.customer_id,
+    ->  ifnull(cr.card_no,"NA") as cardowned,
+    ->  ifnull(t.tamount,"NT") as amount from customer c
+    -> left join creditcard cr on c.customer_id=cr.customer_id
+    -> left join transaction t on t.card_no=cr.card_no
+    ->  where cr.card_no not in(select tr.card_no from transaction tr);
++-------------+-----------+--------+
+| customer_id | cardowned | amount |
++-------------+-----------+--------+
+|        1001 | C107      | NT     |
+|        1003 | C104      | NT     |
+|        1004 | C109      | NT     |
+|        1005 | C108      | NT     |
++-------------+-----------+--------+
+4 rows in set (0.07 sec)
+
+mysql> select  cust_name ,
+    ->  customer_id from customer
+    -> where customer_id
+    -> in (select customer_id from creditcard
+    -> where card_type=(select card_type from creditcard
+    -> group by card_type
+    ->  order by count(customer_id) desc limit 1));
++-----------+-------------+
+| cust_name | customer_id |
++-----------+-------------+
+| Arvind    |        1003 |
+| Antra     |        1004 |
+| Joseph    |        1005 |
++-----------+-------------+
+3 rows in set (0.06 sec)
+
+mysql> select customer_id from customer
+    -> where customer_id in
+    -> (select customer_id from creditcard
+    -> where card_no
+    -> in(select card_no from transaction)
+    -> and card_type="Platinum")and gender="M";
++-------------+
+| customer_id |
++-------------+
+|        1002 |
+|        1005 |
++-------------+
+2 rows in set (0.00 sec)
+
+
+mysql> select c.customer_id
+    -> from customer c
+    -> join creditcard cr
+    -> on c.customer_id=cr.customer_id
+    -> join transaction t on t.card_no=cr.card_no
+    -> where c.gender="M" and c.customer_id
+    -> in (select customer_id from creditcard where card_no
+    -> in(select t.card_no from transaction) and card_type="Platinum");
++-------------+
+| customer_id |
++-------------+
+|        1002 |
+|        1005 |
++-------------+
+2 rows in set (0.00 sec)
+

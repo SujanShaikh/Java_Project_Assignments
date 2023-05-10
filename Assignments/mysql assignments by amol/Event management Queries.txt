@@ -1,0 +1,112 @@
+** Event management **
+
+Queries:
+1.
+mysql> select u.first_name,u.last_name, c.name,c.city,ea.registration_status
+    -> from user u
+    -> join event_application ea
+    -> on u.id=ea.id
+    -> join company c
+    -> on c.id=ea.company_id
+    -> where registration_status="completed";
++------------+-----------+----------+----------+---------------------+
+| first_name | last_name | name     | city     | registration_status |
++------------+-----------+----------+----------+---------------------+
+| Dan        | Williams  | Amazon   | Bengluru | Completed           |
+| Willey     | Harris    | Google   | Bijing   | Completed           |
+| Olivia     | Walker    | Facebook | Ontario  | Completed           |
+| Charlotte  | Chapman   | Amazon   | Bengluru | Completed           |
++------------+-----------+----------+----------+---------------------+
+4 rows in set (0.00 sec)
+
+2.
+mysql> select country, count(first_name) as total_members_from_country
+    -> from user
+    -> group by country;
++---------+----------------------------+
+| country | total_members_from_country |
++---------+----------------------------+
+| India   |                          3 |
+| Canada  |                          3 |
+| China   |                          3 |
+| Japan   |                          1 |
++---------+----------------------------+
+4 rows in set (0.00 sec)
+
+3.
+
+mysql> select first_name,last_name,country
+    -> from user
+    -> where country like '%i%';
++------------+-----------+---------+
+| first_name | last_name | country |
++------------+-----------+---------+
+| Dan        | Williams  | India   |
+| Willey     | Harris    | China   |
+| Barrack    | Robinson  | China   |
+| Emma       | Allen     | India   |
+| Isabella   | Baker     | China   |
+| Charlotte  | Chapman   | India   |
++------------+-----------+---------+
+6 rows in set (0.00 sec)
+
+4.
+
+
+mysql> select distinct u.first_name,u.last_name
+    -> from user u
+    -> join company c
+    -> where c.country='India'or c.country='japan';
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Dan        | Williams  |
+| Sam        | Wilson    |
+| Willey     | Harris    |
+| Barrack    | Robinson  |
+| Chirst     | Stevens   |
+| Olivia     | Walker    |
+| Emma       | Allen     |
+| Isabella   | Baker     |
+| Sophia     | Holmes    |
+| Charlotte  | Chapman   |
++------------+-----------+
+10 rows in set (0.00 sec)
+
+5.
+
+mysql> select c.name,count(company_id) as user_count
+    ->      from company c
+    ->      join event_application ea
+    ->      on c.id=ea.company_id
+    ->      group by ea.company_id;
++-----------+------------+
+| name      | user_count |
++-----------+------------+
+| Amazon    |          3 |
+| Facebook  |          3 |
+| Google    |          2 |
+| Microsoft |          1 |
+| Linkedin  |          1 |
++-----------+------------+
+5 rows in set (0.00 sec)
+
+6.
+
+mysql> select u.first_name,u.last_name,u.job_title,e.name,c.name,c.city
+    -> from event_application ea
+    -> join user u on u.id=ea.user_id
+    -> join company c on c.id=ea.company_id
+    -> join event e
+    -> on e.id=ea.id;
++------------+-----------+-----------+-------------+-----------+----------+
+| first_name | last_name | job_title | name        | name      | city     |
++------------+-----------+-----------+-------------+-----------+----------+
+| Dan        | Williams  | Director  | Spring Fair | Amazon    | Bengluru |
+| Sam        | Wilson    | Manager   | Autumn Fair | Facebook  | Ontario  |
+| Willey     | Harris    | Manager   | Oracle      | Google    | Bijing   |
+| Barrack    | Robinson  | Director  | BETT        | Microsoft | Shanghai |
++------------+-----------+-----------+-------------+-----------+----------+
+4 rows in set (0.00 sec)
+
+

@@ -1,0 +1,8 @@
+delimiter $$
+create trigger delete_emp after delete
+on emp
+for each row
+begin
+insert into  audit_emp values( 'delete ',curdate(),null,concat(new.ename,'-',new.deptid));
+end $$
+ 

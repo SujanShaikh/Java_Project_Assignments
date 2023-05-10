@@ -1,0 +1,131 @@
+ **Library DBMS **
+
+
+Queries:
+
+1.
+mysql> select distinct m.id,m.first_name,m.last_name,i.book_code,d.book_title
+    ->      from lib_members m
+    ->      join lib_book_issue i
+    ->      on m.id=i.member_id
+    ->      join  lib_book_details d
+    ->      on d.book_code=i.book_code;
++-------+------------+-----------+-----------+-------------------------------+
+| id    | first_name | last_name | book_code | book_title                    |
++-------+------------+-----------+-----------+-------------------------------+
+| LM001 | Amit       | Khan      | BL000001  | Java How To Do Program        |
+| LM002 | Abdhul     | Gupta     | BL000002  | Java: The Complete Reference  |
+| LM003 | Gayan      | Sharma    | BL000007  | Let Us C                      |
+| LM004 | Radha      | Modi      | BL000005  | Java How To Do Program        |
+| LM005 | Guru       | Ranka     | BL000008  | Let Us C                      |
++-------+------------+-----------+-----------+-------------------------------+
+
+2.
+mysql> select count(b.book_code) as no_of_books_available from lib_book_details b
+    -> where b.book_code not in(select i.book_code from lib_book_issue i);
++-----------------------+
+| no_of_books_available |
++-----------------------+
+|                     3 |
++-----------------------+
+1 row in set (0.06 sec)
+
+3.
+mysql> select m.id,m.first_name,m.last_name,f.fine_range,f.fine_amount
+    -> from lib_book_issue i
+    -> join lib_members m
+    -> on m.id=i.member_id
+    -> join lib_fine_details f
+    ->  on f.fine_range=i.fine_range
+    -> where f.fine_amount<100;
++-------+------------+-----------+------------+-------------+
+| id    | first_name | last_name | fine_range | fine_amount |
++-------+------------+-----------+------------+-------------+
+| LM001 | Amit       | Khan      | R0         |        0.00 |
+| LM005 | Guru       | Ranka     | R0         |        0.00 |
+| LM003 | Gayan      | Sharma    | R1         |       20.00 |
+| LM004 | Radha      | Modi      | R1         |       20.00 |
+| LM005 | Guru       | Ranka     | R1         |       20.00 |
+| LM002 | Abdhul     | Gupta     | R2         |       50.00 |
++-------+------------+-----------+------------+-------------+
+6 rows in set (0.06 sec)
+
+mysql>
+
+4.
+mysql> select b.book_code,b.book_title, b.publication,year(b.publish_date),b.price, b.book_edition
+    ->  from lib_book_details b
+    ->  order by year(b.publish_date),b.publication,b.book_edition;
++-----------+-------------------------------+-------------------+----------------------+--------+--------------+
+| book_code | book_title                    | publication       | year(b.publish_date) | price  | book_edition |
++-----------+-------------------------------+-------------------+----------------------+--------+--------------+
+| BL000001  | Java How To Do Program        | Prentice Hall     |                 1999 | 600.00 |            6 |
+| BL000003  | Java How To Do Program        | Prentice Hall     |                 1999 | 600.00 |            6 |
+| BL000005  | Java How To Do Program        | Prentice Hall     |                 1999 | 600.00 |            6 |
+| BL000007  | Let Us C                      | BPB Publications  |                 2010 | 500.00 |            9 |
+| BL000008  | Let Us C                      | BPB Publications  |                 2010 | 500.00 |            9 |
+| BL000002  | Java: The Complete Reference  | Tata Mcgraw Hill  |                 2011 | 750.00 |            5 |
+| BL000004  | Java: The Complete Reference  | Tata Mcgraw Hill  |                 2011 | 750.00 |            5 |
+| BL000006  | Java: The Complete Reference  | Tata Mcgraw Hill  |                 2011 | 750.00 |            5 |
++-----------+-------------------------------+-------------------+----------------------+--------+--------------+
+8 rows in set (0.07 sec)
+
+5.
+mysql> select d.book_code,d.book_title,d.rack_num
+    -> from lib_book_details d
+    -> where rack_num='A1'
+    -> order by book_title;
++-----------+-------------------------------+----------+
+| book_code | book_title                    | rack_num |
++-----------+-------------------------------+----------+
+| BL000001  | Java How To Do Program        | A1       |
+| BL000003  | Java How To Do Program        | A1       |
+| BL000005  | Java How To Do Program        | A1       |
+| BL000002  | Java: The Complete Reference  | A1       |
+| BL000004  | Java: The Complete Reference  | A1       |
+| BL000006  | Java: The Complete Reference  | A1       |
++-----------+-------------------------------+----------+
+6 rows in set (0.06 sec)
+
+6.
+
+mysql> select m.id,m.first_name,m.last_name,m.date_register
+    -> from lib_members m
+    -> where m.id not in(select member_id from lib_book_issue);
++-------+------------+-----------+---------------+
+| id    | first_name | last_name | date_register |
++-------+------------+-----------+---------------+
+| LM006 | Mohan      | Chaudhari | 2012-04-12    |
++-------+------------+-----------+---------------+
+
+7.
+mysql> select b.book_title , s.id
+    -> from lib_book_details b
+    ->  join lib_suppliers_details s
+    ->  on s.id=b.supplier_id
+    ->  where s.id="S01" and b.author="Herbert Schildt";
++-------------------------------+-----+
+| book_title                    | id  |
++-------------------------------+-----+
+| Java: The Complete Reference  | S01 |
++-------------------------------+-----+
+1 row in set (0.00 sec)
+
+8.
+
+mysql> select b.book_code,b.book_title ,s.name
+    ->  from lib_book_details b
+    -> join lib_suppliers_details s
+    -> on s.id=b.supplier_id
+    ->  where s.id=(select s.id
+    -> from  lib_book_details b
+    -> join lib_suppliers_details s
+    -> on s.id=b.supplier_id
+    ->  group by s.id
+    -> order by count(b.book_code) limit 1);
++-----------+------------+--------------+
+| book_code | book_title | name         |
++-----------+------------+--------------+
+| BL000008  | Let Us C   | KAVARI STORE |
++-----------+------------+--------------+
+1 row in set (0.00 sec)

@@ -1,0 +1,171 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2057{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}{\f2\fnil\fcharset2 Symbol;}}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\ul\b\f0\fs22\lang9 BASE QUERY\ulnone\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\i SELECT * FROM table_name\i0 ;\par
+
+\pard\sa200\sl276\slmult1\b0 This query returns every column and every row of the table called table_name.\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b\i SELECT * FROM table_name LIMIT 10;\par
+
+\pard\sa200\sl276\slmult1\b0\i0 It returns every column and the first 10 rows from table_name.\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b\i SELECTING SPECIFIC COLUMNS\par
+
+\pard\sa200\sl276\slmult1\b0               SELECT column1, column2, column3 FROM table_name;\par
+\i0 This query returns every row of column1, column2 and column3 from table_name.\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b INSERT - Insert data into a table.\par
+
+\pard\sa200\sl276\slmult1\b0\i Syntax: INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...)\i0\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b UPDATE - Modify data in a table.\par
+
+\pard\sa200\sl276\slmult1\b0\i Syntax: UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;\i0\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b DELETE - Delete data from a table.\par
+
+\pard\sa200\sl276\slmult1\b0\i Syntax: DELETE FROM table_name WHERE condition;\i0\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b CREATE DATABASE - Create a new database.\par
+
+\pard\sa200\sl276\slmult1\b0\i Syntax: CREATE DATABASE database_name;\i0\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b DROP DATABASE - Delete a database.\par
+
+\pard\sa200\sl276\slmult1\b0\i Syntax: DROP DATABASE database_name;\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b\i0 CREATE TABLE - Create a new table.\par
+
+\pard\sa200\sl276\slmult1\b0\i Syntax: CREATE TABLE table_name (column1 data_type, column2 data_type, ...);\i0\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b DROP TABLE - Delete a table.\par
+
+\pard\sa200\sl276\slmult1\b0\i Syntax: DROP TABLE table_name;\i0\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b ALTER TABLE - Modify an existing table.\par
+
+\pard\sa200\sl276\slmult1\b0\i Syntax: ALTER TABLE table_name ADD COLUMN column_name data_type;\i0\par
+\ul\b DATA TYPES IN SQL\ulnone\b0\par
+In SQL we have more than 40 different data types. But these seven are the most\par
+important ones:\par
+1. \b Integer\b0 . A whole number without a fractional part. E.g. 1, 156, 2012412\par
+2. \b Decimal\b0 . A number with a fractional part. E.g. 3.14, 3.141592654, 961.1241250\par
+3. \b Boolean\b0 . A binary value. It can be either TRUE or FALSE.\par
+4. \b Date\b0 . Speaks for itself. You can also choose the format. E.g. 2017-12-31\par
+5. \b Time\b0 . You can decide the format of this, as well. E.g. 23:59:59\par
+6. \b Timestamp\b0 . The date and the time together. E.g. 2017-12-31 23:59:59\par
+7. \b Text\b0 . This is the most general data type. But it can be alphabetical letters only,\par
+or a mix of letters and numbers and any other characters. E.g. hello, R2D2,\par
+Tomi, 124.56.128.41\par
+\par
+\ul\b FILTERING (the WHERE CLAUSE)\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\ulnone\i SELECT * FROM table_name WHERE column1 = 'expression';\par
+
+\pard\sa200\sl276\slmult1\b0\i0 "Horizontal filtering." This query returns every column from table_name - but only\par
+those rows where the value in column1 is 'expression\par
+\ul\b ADVANCED FILTERING\par
+\ulnone\b0 Comparison operators help you compare two values\par
+\b Comparison operator \par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b0 = Equal to\par
+{\pntext\f2\'B7\tab}<> Not equal to\par
+{\pntext\f2\'B7\tab}!= Not equal to\par
+{\pntext\f2\'B7\tab}< Less than\par
+{\pntext\f2\'B7\tab}<= Less than or equal to\par
+{\pntext\f2\'B7\tab}> Greater than\par
+{\pntext\f2\'B7\tab}>= Greater than or equal to\par
+{\pntext\f2\'B7\tab}LIKE \lquote %expression%\rquote  Contains \lquote expression\rquote\par
+{\pntext\f2\'B7\tab}IN (\lquote exp1\rquote , \lquote exp2\rquote , \lquote exp3\rquote ) Contains any of \lquote exp1\rquote , \lquote exp2\rquote , or \lquote exp3\par
+
+\pard\sa200\sl276\slmult1\par
+\ul\b SORTING VALUES\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\ulnone\i SELECT * FROM table_name ORDER BY column1;\par
+
+\pard\sa200\sl276\slmult1\b0\i0 This query returns every row and column from table_name, ordered by column1, in\par
+ascending order (by default).\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b\i SELECT * FROM table_name ORDER BY column1 DESC;\par
+
+\pard\sa200\sl276\slmult1\b0\i0 This query returns every row and column from table_name, ordered by column1, in\par
+descending order.\par
+
+\pard{\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\b\i UNIQUE VALUES\par
+
+\pard\sa200\sl276\slmult1\tab SELECT DISTINCT(column1) FROM table_name;\par
+\b0\i0 It returns every unique value from column1 from table_name.\par
+\par
+\ul\b SQL FUNCTIONS FOR AGGREGATION\par
+\ulnone\b0 In SQL, there are five important aggregate functions for data analysts/scientists:\par
+\f1\bullet  COUNT()\par
+\bullet  SUM()\par
+\bullet  AVG()\par
+\bullet  MIN()\par
+\bullet  MAX() \par
+\par
+\ul\b SQL GROUP BY\par
+\ulnone\b0 The GROUP BY clause is usually used with an aggregate function (COUNT, SUM,\par
+AVG, MIN, MAX). It groups the rows by a given column value (specified after\par
+GROUP BY) then calculates the aggregate for each group and returns that to the\par
+screen.\par
+\par
+\ul\b SQL ALIASES\ulnone\b0\par
+You can rename columns, tables, subqueries, anything.\par
+\b\i SELECT column1, COUNT(column2) AS number_of_values FROM table_name\par
+GROUP BY column1;\par
+\b0\i0 This query counts the number of values in column2 - for each group of unique\par
+column1 values. Then it renames the COUNT(column2) column to\par
+number_of_values.\par
+\par
+\ul\b SQL JOIN\ulnone\b0\par
+You can JOIN two (or more) SQL tables based on column values.\par
+SELECT *\par
+FROM table1\par
+JOIN table2\par
+ON table1.column1 = table2.column1;\par
+This joins table1 and table2 values - for every row where the value of column1 from\par
+table1 equals the value of column1 from table2. \par
+\par
+\ul\b SQL HAVING\par
+\ulnone\b0 The execution order of the different SQL keywords doesn't allow you to filter with\par
+the WHERE clause on the result of an aggregate function (COUNT, SUM, etc.). This\par
+is because WHERE is executed before the aggregate functions. But that's what\par
+HAVING is for:\par
+\b\i SELECT column1, COUNT(column2)\par
+FROM table_name\par
+GROUP BY column1\par
+HAVING COUNT(column2) > 100\b0\i0 ;\par
+This query counts the number of values in column2 - for each group of unique\par
+column1 values. It returns only those results where the counted value is greater\par
+than 100. \par
+\par
+\ul\b CORRECT KEYWORD ORDER AGAIN\par
+\ulnone\b0 SQL is extremely sensitive to keyword order.\par
+So make sure you keep it right:\par
+1. SELECT\par
+2. FROM\par
+3. JOIN (ON)\par
+4. WHERE\par
+5. GROUP BY\par
+6. HAVING\par
+7. ORDER BY\par
+8. LIMIT \par
+\par
+\ul\b SUBQUERIES\par
+\ulnone\b0 You can run SQL queries within SQL queries. (Called subqueries.) Even queries\par
+within queries within queries. The point is to use the result of one query as an input\par
+value of another query.\par
+Example:\par
+\b\i SELECT COUNT(*) FROM\par
+ (SELECT column1, COUNT(column2) AS inner_number_of_values\par
+ FROM table_name\par
+ GROUP BY column1) AS inner_query\par
+WHERE inner_number_of_values > 100\b0\i0 ;\par
+The inner query counts the number of values in column2 - for each group of unique\par
+column1 values. Then the outer query uses the inner query's results and counts the\par
+number of values where inner_number_of_values are greater than 100. (The result\par
+is one number.)\f0\par
+}
+ 
