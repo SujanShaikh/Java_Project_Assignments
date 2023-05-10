@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="Employee" table="employee">
+        <id name="id" type="int">
+            <column name="ID"/>
+            <generator class="assigned"/>
+        </id>
+        <discriminator column="EMPLOYEE_TYPE" type="string"/>
+        <property name="name" type="string"/>
+        <subclass name="PartTimeEmp" discriminator-value="PART_TIME">
+            <property name="hrs_sal" type="int"/>
+            <property name="no_of_hrs" type="int"/>
+        </subclass>
+        <subclass name="FullTimeEmp" discriminator-value="FULL_TIME">
+            <property name="fix_sal" type="int"/>
+            <property name="extra_no_of_hrs" type="int"/>
+            <property name="extra_hrs_sal" type="int"/>
+        </subclass>
+    </class>
+</hibernate-mapping>

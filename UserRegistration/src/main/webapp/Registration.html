@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration</title>
+</head>
+<body>
+<form action="RegisterServlet" method="POST">
+  <h1>Registration Form</h1>
+  <br>
+  <br>
+  Enter First Name:
+  <input type="text" name="firstname">
+  <br>
+  Enter Last Name:
+  <input type="text" name="lastname">
+  <br>
+  Enter Date of Birth:
+  <input type="date" name="dob" placeholder="yyyy-mm-dd" required>
+  <br>
+  Enter Email:
+  <input type="email" name="email" >
+  <br>
+  Set Password:
+  <input type="password" name="password" >
+  <br>
+  Upload Image:
+  <input type="file" name="image">
+  <br>
+  Enter Address:
+  <textarea name="address"></textarea>
+  <br>
+  Enter Phone Number:
+  <input type="text" name="phoneno" >
+  <br>
+  <br>
+  <input type="submit" name="submit" value="Register">
+  <input type="reset" name="reset">
+</form>
+</body>
+</html>
